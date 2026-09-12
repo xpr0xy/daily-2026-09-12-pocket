@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>POCKET · two-step pocket writer</title>
+<meta name="description" content="Draw a 2-bar two-step pattern, shape the kick, snare, hat and sub, and export a loop-ready WAV or MIDI.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-product="POCKET">
+
+<header class="topbar">
+  <div class="brand">
+    <h1>POCKET</h1>
+    <p>two-step pocket writer</p>
+  </div>
+
+  <div class="transport">
+    <button id="play" class="play" aria-pressed="false">
+      <span class="glyph" aria-hidden="true">▶</span><span class="lbl">PLAY</span>
+    </button>
+    <label class="tempo" for="bpm">
+      <span class="k">TEMPO</span>
+      <input id="bpm" type="number" min="120" max="190" step="1" value="172">
+      <span class="unit">BPM</span>
+    </label>
+    <div class="pos">
+      <span class="k">POS</span>
+      <span id="pos">BAR — · --</span>
+    </div>
+  </div>
+
+  <div class="master">
+    <label class="ctl" for="swing"><span class="k">SWING</span>
+      <input id="swing" type="range" min="0" max="60" step="1" value="14"><output id="swingOut" for="swing">14%</output>
+    </label>
+    <label class="ctl" for="mdrive"><span class="k">DRIVE</span>
+      <input id="mdrive" type="range" min="0" max="100" step="1" value="30"><output id="mdriveOut" for="mdrive">30%</output>
+    </label>
+    <label class="ctl" for="mlevel"><span class="k">LEVEL</span>
+      <input id="mlevel" type="range" min="20" max="100" step="1" value="88"><output id="mlevelOut" for="mlevel">88%</output>
+    </label>
+  </div>
+</header>
+
+<main>
+  <section class="stage" aria-label="pattern">
+    <div class="railscroll" id="railscroll">
+      <div class="rails" id="rails"></div>
+    </div>
+    <div class="stagefoot">
+      <p id="hint" class="hint">drag across a rail to draw accents · click toggles a step · SUB: right-click or shift+↑↓ steps the note · space plays</p>
+      <div id="pend" class="pend" hidden>PENDING · LANDS AT LOOP END</div>
+    </div>
+  </section>
+
+  <aside class="rack" aria-label="controls">
+    <details class="panel" open>
+      <summary><h2>PATTERNS</h2></summary>
+      <div class="grid2">
+        <button class="ghost" data-preset="two-step">TWO-STEP</button>
+        <button class="ghost" data-preset="half-time">HALF-TIME</button>
+        <button class="ghost" data-preset="shuffle">SHUFFLE</button>
+        <button class="ghost" data-preset="dub-cut">DUB CUT</button>
+      </div>
+      <div class="row">
+        <button id="dice" class="ghost wide">DICE <span class="sub">unlocked voices only</span></button>
+      </div>
+      <div class="row">
+        <button id="clearAll" class="ghost">CLEAR</button>
+        <button id="copyAB" class="ghost">COPY SLOT</button>
+      </div>
+      <p class="note">DICE rolls each unlocked voice on its own weight map. Lock a voice with LCK on its rail.</p>
+    </details>
+
+    <details class="panel" open>
+      <summary><h2>VOICE <span id="voiceName" class="voicename"></span></h2></summary>
+      <div class="scope">
+        <canvas id="voiceScope"></canvas>
+        <span id="scopeLabel" class="scopelabel"></span>
+      </div>
+      <div id="voiceCtl" class="ctls"></div>
+    </details>
+
+    <details class="panel" open>
+      <summary><h2>SLOTS</h2></summary>
+      <div class="slots">
+        <button data-slot="a" aria-pressed="true">A</button>
+        <button data-slot="b" aria-pressed="false">B</button>
+      </div>
+      <p class="note">Two patterns, one tempo. Edits land at the loop end while playing.</p>
+    </details>
+
+    <details class="panel" open>
+      <summary><h2>EXPORT</h2></summary>
+      <div class="row">
+        <button id="exportWav" class="ghost primary">WAV LOOP</button>
+        <button id="exportMidi" class="ghost">MIDI</button>
+      </div>
+      <div class="row">
+        <button id="exportRecipe" class="ghost">RECIPE ↓</button>
+        <label class="filebtn" for="importRecipe">RECIPE ↑<input id="importRecipe" type="file" accept="application/json" hidden></label>
+      </div>
+      <p class="note" id="status"></p>
+    </details>
+  </aside>
+</main>
+
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>

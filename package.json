@@ -1,0 +1,16 @@
+{
+  "name": "pocket",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "POCKET — two-step pocket writer: draw a minimal break, export a loop-ready WAV or MIDI.",
+  "scripts": {
+    "test": "node test.mjs",
+    "build": "node build.mjs",
+    "qa": "node qa.mjs",
+    "validate": "node validate.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.63.0"
+  }
+}

@@ -1,0 +1,6 @@
+node_modules/
+qa/*.png
+qa/*.wav
+qa/*.mid
+qa/server.log
+qa/server.pid
